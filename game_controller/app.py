@@ -3,14 +3,40 @@ import requests
 
 app = Flask(__name__)
 
-PUZZLE_ROOM_1_URL = "http://puzzle_room_1:5001"
+PUZZLE_ROOM_URL = {
+    "1": "http://puzzle_room_1:5001",
+    "2": "http://puzzle_room_2:5002"
+}
 
-@app.route("/home", methods=["GET"])
+current_room: int = 1
+game_state = {
+    "solved_rooms": [],
+    "inventory": {
+
+    }
+}
+
+@app.route("/", methods=["GET"])
 def start():
-    print("Ricevuta azione: start")
+    response = requests.get(f"{PUZZLE_ROOM_URL[current_room]}/")
 
-    response = requests.get(f"{PUZZLE_ROOM_1_URL}/home")
-    return jsonify({"response_from_puzzle": response.json()})
+    return jsonify(response)
+
+@app.route("/answer", methods=["POST"])
+def answer():
+    action = request.json.get("answer")
+
+    response = requests.post(f"{PUZZLE_ROOM_URL[current_room]/answer}", json={"answer": action})
+
+    if (response.json.get("status")) == "ok":
+        if response.json.get("object"):
+            game_state["inventory"][current_room] = response.json.get("object")
+
+        game_state["solved_rooms"].append(current_room)
+
+        current_room += 1
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
