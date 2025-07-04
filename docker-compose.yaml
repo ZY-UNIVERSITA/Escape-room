@@ -8,5 +8,6 @@ services:
 
   puzzle_room_1:
     build: ./rooms/room_1
+    # ports for debug
     ports:
       - "5001:5001"

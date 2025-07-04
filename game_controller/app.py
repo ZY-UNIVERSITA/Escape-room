@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 PUZZLE_ROOM_1_URL = "http://puzzle_room_1:5001"
 
-@app.rout("/home", methods=["GET"])
+@app.route("/home", methods=["GET"])
 def start():
     print("Ricevuta azione: start")
 

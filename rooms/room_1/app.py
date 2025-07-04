@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.rout("/home", methods=["GET"])
+@app.route("/home", methods=["GET"])
 def start():
     return jsonify({"status": "ok", "message": f"Inizio puzzle"})
 
