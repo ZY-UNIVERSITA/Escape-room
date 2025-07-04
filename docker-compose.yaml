@@ -1,0 +1,12 @@
+services:
+  game_controller:
+    build: ./game_controller
+    ports:
+      - "5000:5000"
+    depends_on:
+      - puzzle_room_1
+
+  puzzle_room_1:
+    build: ./rooms/room_1
+    ports:
+      - "5001:5001"
