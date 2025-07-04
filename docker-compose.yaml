@@ -11,3 +11,7 @@ services:
     # ports for debug
     ports:
       - "5001:5001"
+
+  puzzle_room_2:
+    build: ./rooms/room_2
+    
