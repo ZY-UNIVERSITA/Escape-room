@@ -26,7 +26,7 @@ def start():
 def answer():
     action = request.json.get("answer")
 
-    response = requests.post(f"{PUZZLE_ROOM_URL[current_room]/answer}", json={"answer": action})
+    response = requests.post(f"{PUZZLE_ROOM_URL[str(current_room)]/answer}", json={"answer": action})
 
     if (response.json.get("status")) == "ok":
         if response.json.get("object"):
