@@ -18,7 +18,7 @@ game_state = {
 
 @app.route("/", methods=["GET"])
 def start():
-    response = requests.get(f"{PUZZLE_ROOM_URL[current_room]}/")
+    response = requests.get(f"{PUZZLE_ROOM_URL[str(current_room)]}/")
 
     return jsonify(response)
 
