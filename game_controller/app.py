@@ -19,24 +19,26 @@ game_state = {
 @app.route("/", methods=["GET"])
 def start():
     response = requests.get(f"{PUZZLE_ROOM_URL[str(current_room)]}/")
+    data = response.json()
 
-    return jsonify(response)
+    return jsonify(data)
 
 @app.route("/answer", methods=["POST"])
 def answer():
     action = request.json.get("answer")
 
     response = requests.post(f"{PUZZLE_ROOM_URL[str(current_room)]/answer}", json={"answer": action})
+    data = response.json()
 
     if (response.json.get("status")) == "ok":
-        if response.json.get("object"):
-            game_state["inventory"][current_room] = response.json.get("object")
+        if data.get("object"):
+            game_state["inventory"][current_room] = data.get("object")
 
         game_state["solved_rooms"].append(current_room)
 
         current_room += 1
 
-    return jsonify(response)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
