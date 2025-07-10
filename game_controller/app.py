@@ -1,13 +1,13 @@
+from typing import Dict
 from flask import Flask, request, jsonify
 import requests
 import logging
-import os
 
 app = Flask(__name__)
 
 app.logger.setLevel(logging.INFO)
 
-PUZZLE_ROOM_URL = {
+PUZZLE_ROOM_URL: Dict[str, str] = {
     "1": "http://puzzle_room_1:5001",
     "2": "http://puzzle_room_2:5002"
 }
