@@ -1,12 +1,15 @@
 from flask import Flask, jsonify
 from flask_socketio import SocketIO
+import logging
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="http://game_controller:5000")
+app.logger.setLevel(logging.INFO)
+
+socketio = SocketIO(app, cors_allowed_origins="http://127.0.0.1:5000")
 
 @socketio.on('connect')
 def handle_connect():
-    print('Client connected to Game Engine')
+    app.logger.info('Client connected to Game Engine')
 
 @app.route('/')
 def start():
