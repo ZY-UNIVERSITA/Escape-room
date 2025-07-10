@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Prova</title>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #status { margin-top: 20px; color: green; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Benvenuto nel gioco cooperativo!</h1>
+  <p>Connessione al server WebSocket in corso...</p>
+  <div id="status">Stato: disconnesso</div>
+
+  <script>
+    const socket = io("http://localhost:5001");
+
+    socket.on("connect", () => {
+      document.getElementById("status").textContent = "Stato: connesso";
+    });
+
+    socket.on("disconnect", () => {
+      document.getElementById("status").textContent = "Stato: disconnesso";
+    });
+  </script>
+</body>
+</html>
